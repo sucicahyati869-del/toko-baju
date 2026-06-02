@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fashion Clothes</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+body{
+    background:linear-gradient(to right,#FFB6C1,#FFC0CB);
+    min-height:100vh;
+
+    /* background image benar */
+    background-image:url('bg.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-attachment:fixed;
+}
+
+/* HEADER */
+header{
+    background:#FFC0CB;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+nav a:hover{
+    color:deeppink;
+}
+
+/* CONTAINER */
+.keranjang-container{
+    width:90%;
+    max-width:1000px;
+    background:white;
+    margin:40px auto;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.judul{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.produk{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    border-bottom:1px solid #ddd;
+    padding:20px 0;
+    flex-wrap:wrap;
+}
+
+.produk img{
+    width:120px;
+    border-radius:10px;
+}
+
+.info{
+    flex:1;
+}
+
+.harga{
+    color:green;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.qty-box{
+    margin-top:10px;
+}
+
+input[type="number"]{
+    width:70px;
+    padding:8px;
+    margin-left:10px;
+}
+
+/* BUTTON */
+.button-group button{
+    margin-top:10px;
+    padding:10px 18px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    background:#FFC0CB;
+    color:white;
+}
+
+.button-group button:hover{
+    transform:scale(1.05);
+}
+
+.total-semua{
+    text-align:right;
+    margin-top:30px;
+}
+
+.bayar-btn{
+    padding:14px 25px;
+    background:pink;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+footer{
+    background:;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+🛒 The Princess Palace
+</div>
+
+<nav>
+<a href="index-1.html">Home</a>
+<a href="produk-1.html">Product</a>
+<a href="kategori-1.html">Categories</a>
+<a href="kontak-1.html">Contact</a>
+<a href="login-1.html">Login</a>
+</nav>
+
+</header>
+
+<div class="keranjang-container">
+
+<h1 class="judul">SHOPPING CART</h1>
+
+<!-- PRODUK 1 -->
+<div class="produk">
+
+<img src="kemeja.jpg">
+
+<div class="info">
+
+<h3>Gray Neck Blouse</h3>
+
+<p class="harga">
+Rp <span id="harga-blouse">115000</span>
+</p>
+
+<div class="qty-box">
+<label>QTY:</label>
+
+<input type="number"
+id="qty-blouse"
+value="1"
+min="1"
+oninput="hitungTotal()">
+</div>
+
+<p>
+Total :
+Rp <span id="total-blouse">115000</span>
+</p>
+
+</div>
+
+</div>
+
+<!-- PRODUK 2 -->
+<div class="produk">
+
+<img src="gamis.jpg">
+
+<div class="info">
+
+<h3>Abaya Queen</h3>
+
+<p class="harga">
+Rp <span id="harga-abaya">550000</span>
+</p>
+
+<div class="qty-box">
+
+<label>QTY:</label>
+
+<input type="number"
+id="qty-abaya"
+value="1"
+min="1"
+oninput="hitungTotal()">
+
+</div>
+
+<p>
+Total :
+Rp <span id="total-abaya">550000</span>
+</p>
+
+</div>
+
+</div>
+
+<!-- PRODUK 3 -->
+<div class="produk">
+
+<img src="28.jpg">
+
+<div class="info">
+
+<h3>Cotton Premium</h3>
+
+<p class="harga">
+Rp <span id="harga-cotton">75000</span>
+</p>
+
+<div class="qty-box">
+
+<label>QTY:</label>
+
+<input type="number"
+id="qty-cotton"
+value="1"
+min="1"
+oninput="hitungTotal()">
+
+</div>
+
+<p>
+Total :
+Rp <span id="total-cotton">75000</span>
+</p>
+
+</div>
+
+</div>
+
+<!-- TOTAL -->
+<div class="total-semua">
+
+<h2>
+ALL ITEMS:
+Rp <span id="grand-total">740000</span>
+</h2>
+
+<button class="bayar-btn" onclick="bayarSemua()">
+Buy Now
+</button>
+
+</div>
+
+</div>
+
+<footer>
+
+<h2>THE PRINCESS PALACE</h2>
+
+<p>Website The Princess Palace</p>
+
+</footer>
+
+<script>
+
+function formatRupiah(angka){
+    return angka.toLocaleString('id-ID');
+}
+
+function hitungTotal(){
+
+    const items = ['blouse','abaya','cotton'];
+
+    let grandTotal = 0;
+
+    items.forEach(item => {
+
+        const harga =
+        parseInt(document.getElementById(`harga-${item}`).innerText);
+
+        const qty =
+        parseInt(document.getElementById(`qty-${item}`).value);
+
+        const total = harga * qty;
+
+        document.getElementById(`total-${item}`).innerText =
+        formatRupiah(total);
+
+        grandTotal += total;
+
+    });
+
+    document.getElementById("grand-total").innerText =
+    formatRupiah(grandTotal);
+
+}
+
+function bayarSemua(){
+    alert("Pembayaran berhasil");
+}
+
+hitungTotal();
+
+</script>
+
+</body>
+</html>
